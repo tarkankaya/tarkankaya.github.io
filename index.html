@@ -250,6 +250,9 @@
       els.list.innerHTML = sorted.map(p => {
         const name = escapeHtml(p.name || 'İsimsiz Proje');
         const desc = escapeHtml(p.description || '');
+        const titleMarkup = p.links?.github
+          ? `<h3><a href="${p.links.github}" target="_blank" rel="noreferrer">${name}</a></h3>`
+          : `<h3>${name}</h3>`;
 
         // Not: Tag'leri göstermek istemezsen, aşağıdaki tagLine satırını boş bırakabiliriz.
         const tagLine = Array.isArray(p.tags) && p.tags.length
@@ -285,7 +288,7 @@
           <figure class="project">
             ${imgMarkup}
             <div>
-              <h3>${name}</h3>
+              ${titleMarkup}
               <p>${desc}</p>
               ${tagLine}
               ${links}
