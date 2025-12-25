@@ -164,8 +164,13 @@
       },
       {
         name: "Same File Finder",
-        image: "img/samefile/1736606314940.gif",
-        freezeGif: true,
+        images: [
+          "img/samefile/frame1.jpg",
+          "img/samefile/frame2.jpg",
+          "img/samefile/frame3.jpg",
+          "img/samefile/frame4.jpg",
+          "img/samefile/frame5.jpg"
+        ],
         description: "Klasör içindeki dosyaları bayt seviyesinde karşılaştırarak benzer veya tamamen aynı dosyaları tespit eden C++ WinAPI aracı.",
         tags: ["C++", "WinAPI", "Masaüstü"],
         year: 2025,
@@ -291,7 +296,7 @@
       PROJECTS.forEach((p, i) => {
         console.assert(p && typeof p === 'object', `PROJECTS[${i}] nesne olmalı`);
         console.assert(typeof p.name === 'string', `PROJECTS[${i}].name string olmalı`);
-        console.assert(typeof p.image === 'string', `PROJECTS[${i}].image string olmalı`);
+        console.assert(typeof p.image === 'string' || (Array.isArray(p.images) && p.images.length > 0), `PROJECTS[${i}].image veya images olmalı`);
         console.assert(typeof p.description === 'string', `PROJECTS[${i}].description string olmalı`);
         console.assert(typeof p.year === 'number', `PROJECTS[${i}].year number olmalı`);
       });
