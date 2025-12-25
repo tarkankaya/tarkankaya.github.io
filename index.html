@@ -323,6 +323,8 @@
         imgs.forEach((img, i) => {
           img.style.opacity = i === 0 ? '1' : '0';
           img.classList.toggle('active', i === 0);
+          // ensure only the visible slide receives pointer events
+          img.style.pointerEvents = i === 0 ? 'auto' : 'none';
         });
 
         // State for progress animation
@@ -363,9 +365,11 @@
           stopProgress();
           imgs[current].classList.remove('active');
           imgs[current].style.opacity = '0';
+          imgs[current].style.pointerEvents = 'none';
           current = (current + 1) % imgs.length;
           imgs[current].classList.add('active');
           imgs[current].style.opacity = '1';
+          imgs[current].style.pointerEvents = 'auto';
           resetProgress();
           // start again
           startProgress(0);
@@ -478,8 +482,13 @@
         pausedGallery = gallery;
         // pause the gallery (simulate hover)
         gallery.dispatchEvent(new Event('mouseenter'));
-        const index = imgs.indexOf(el);
-        showOverlayAt(index >= 0 ? index : 0);
+        // Prefer the currently visible slide. If the clicked element is one of the imgs, use that index; otherwise find the active one.
+        let index = imgs.indexOf(el);
+        if (index < 0) {
+          index = imgs.findIndex(i => i.classList.contains('active') || parseFloat(getComputedStyle(i).opacity || '0') > 0.5);
+          if (index < 0) index = 0;
+        }
+        showOverlayAt(index);
         return;
       }
 
