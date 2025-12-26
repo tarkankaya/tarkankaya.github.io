@@ -146,13 +146,12 @@
   <!-- Chat örneği (sunucusuz moda uygun) -->
   <button id="openChatBtn" class="chat-toggle" aria-label="Chat örneği">Chat örneği</button>
   <div class="chat-instructions" aria-hidden="true">
-    <div>Socket.IO örneğinde olduğu gibi test etmek için:</div>
-    <div><strong>Yeni bir tarayıcı sekmesi açın</strong> ve aynı sayfayı yükleyin; sonra her iki sekmede de <strong>"Chat örneği"</strong> butonuna tıklayarak sohbet penceresi açın. Gönderilen mesaj her iki tarafta görünmelidir.</div>
+    <div class="short">Test: <strong>Yeni sekme aç</strong> → her iki sekmede <strong>Chat örneği</strong> aç → gönder</div>
     <div class="chat-instructions-actions">
-      <button id="openTestTab" class="mini-btn">Aç & Test Et (Yeni Sekme)</button>
+      <button id="openTestTab" class="mini-btn">Aç & Test Et</button>
       <button id="copyTestLink" class="mini-btn">Bağlantıyı Kopyala</button>
     </div>
-    <div class="chat-instructions-note">Not: Sunucusuz mod yalnızca aynı tarayıcı/same-origin sekmeler arasında çalışır; farklı cihazlarda çalışması için sunucu gereklidir.</div>
+    <div class="chat-instructions-note">Sunucusuz: sadece aynı tarayıcı/aynı origin.</div>
   </div>
   <div id="chatContainer" aria-live="polite"></div>
 
