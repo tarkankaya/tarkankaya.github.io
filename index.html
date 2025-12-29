@@ -812,10 +812,20 @@
     document.addEventListener('click', (e) => {
       const el = e.target.closest('img, canvas');
       if (!el) return;
+
+      // Sertifika veya proje/galleri görsellerinde overlay aç
       if (el.closest('figure.project') || el.closest('.image-area') || el.closest('.animated-gallery')) {
+        // Eğer img bir link içindeyse, sayfadan çıkmasın; overlay açsın
+        const a = el.closest('a');
+        if (a && a.classList.contains('img-link')) {
+          e.preventDefault(); // linke gitme
+          // isterse kullanıcı sağ tık -> yeni sekmede aç yapabilir
+        }
+
         openOverlayFromElement(el);
       }
     });
+
 
 
   </script>
