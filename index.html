@@ -624,7 +624,6 @@
         function startProgress(ms) {
           // start from elapsed (ms may be provided for resume)
           startTs = performance.now();
-          cancelled = false;
           function step(now) {
             if (paused) { startTs += (performance.now() - now); raf = requestAnimationFrame(step); return; }
             const dt = now - startTs + (ms || 0);
