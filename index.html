@@ -182,39 +182,6 @@
   <div id="chatContainer" aria-live="polite"></div>
 
   <script>
-    (function openOverlayFromDeepLink() {
-      try {
-        const params = new URLSearchParams(location.search);
-        const key = (params.get('img') || '').toLowerCase();
-
-        const map = {
-          n5: 'img/n5.jpeg',
-          pc: 'img/pc.jpeg'
-        };
-
-        const src = map[key];
-        if (!src) return;
-
-        // Tek görsel ile overlay aç
-        currentItems = [{ type: 'img', src }];
-        showOverlayAt(0);
-
-        // Kapanınca URL'i temizle (normal sayfada kal)
-        const _close = closeOverlay;
-        closeOverlay = function () {
-          _close();
-          const url = new URL(location.href);
-          url.searchParams.delete('img');
-          history.replaceState({}, '', url.pathname + (url.searchParams.toString() ? ('?' + url.searchParams.toString()) : '') + url.hash);
-        };
-      } catch (e) { }
-    })();
-
-
-
-
-
-
     (function () {
       // Transport abstraction: BroadcastChannel (preferred) or localStorage fallback — serverless by default
       const Transport = {
@@ -845,7 +812,33 @@
         openOverlayFromElement(el);
       }
     });
+    (function openOverlayFromDeepLink() {
+      try {
+        const params = new URLSearchParams(location.search);
+        const key = (params.get('img') || '').toLowerCase();
 
+        const map = {
+          n5: 'img/n5.jpeg',
+          pc: 'img/pc.jpeg'
+        };
+
+        const src = map[key];
+        if (!src) return;
+
+        // Tek görsel ile overlay aç
+        currentItems = [{ type: 'img', src }];
+        showOverlayAt(0);
+
+        // Kapanınca URL'i temizle (normal sayfada kal)
+        const _close = closeOverlay;
+        closeOverlay = function () {
+          _close();
+          const url = new URL(location.href);
+          url.searchParams.delete('img');
+          history.replaceState({}, '', url.pathname + (url.searchParams.toString() ? ('?' + url.searchParams.toString()) : '') + url.hash);
+        };
+      } catch (e) { }
+    })();
 
   </script>
 </body>
