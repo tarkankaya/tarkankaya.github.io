@@ -115,9 +115,7 @@
           <h2>Sertifikalar</h2>
           <div class="cert">
             <div class="image-area">
-              <a href="img/n5.jpeg" target="_blank" rel="noreferrer" class="img-link">
-                <img src="img/n5.jpeg" alt="JLPT N3 Sertifikası">
-              </a>
+              <img src="img/n5.jpeg" alt="JLPT N3 Sertifikası">
             </div>
             <div class="cert-desc">
               <strong>JLPT Sertifikası (Resmi Belge)</strong>
@@ -127,9 +125,7 @@
 
           <div class="cert">
             <div class="image-area">
-              <a href="img/pc.jpeg" target="_blank" rel="noreferrer" class="img-link">
-                <img src="img/pc.jpeg" alt="SmartPro IT Eğitimi">
-              </a>
+              <img src="img/pc.jpeg" alt="SmartPro IT Eğitimi">
             </div>
             <div class="cert-desc">
               <strong>Bilgi Teknolojileri Eğitimi (SmartPro)</strong>
@@ -186,6 +182,39 @@
   <div id="chatContainer" aria-live="polite"></div>
 
   <script>
+    (function openOverlayFromDeepLink() {
+      try {
+        const params = new URLSearchParams(location.search);
+        const key = (params.get('img') || '').toLowerCase();
+
+        const map = {
+          n5: 'img/n5.jpeg',
+          pc: 'img/pc.jpeg'
+        };
+
+        const src = map[key];
+        if (!src) return;
+
+        // Tek görsel ile overlay aç
+        currentItems = [{ type: 'img', src }];
+        showOverlayAt(0);
+
+        // Kapanınca URL'i temizle (normal sayfada kal)
+        const _close = closeOverlay;
+        closeOverlay = function () {
+          _close();
+          const url = new URL(location.href);
+          url.searchParams.delete('img');
+          history.replaceState({}, '', url.pathname + (url.searchParams.toString() ? ('?' + url.searchParams.toString()) : '') + url.hash);
+        };
+      } catch (e) { }
+    })();
+
+
+
+
+
+
     (function () {
       // Transport abstraction: BroadcastChannel (preferred) or localStorage fallback — serverless by default
       const Transport = {
@@ -812,20 +841,10 @@
     document.addEventListener('click', (e) => {
       const el = e.target.closest('img, canvas');
       if (!el) return;
-
-      // Sertifika veya proje/galleri görsellerinde overlay aç
       if (el.closest('figure.project') || el.closest('.image-area') || el.closest('.animated-gallery')) {
-        // Eğer img bir link içindeyse, sayfadan çıkmasın; overlay açsın
-        const a = el.closest('a');
-        if (a && a.classList.contains('img-link')) {
-          e.preventDefault(); // linke gitme
-          // isterse kullanıcı sağ tık -> yeni sekmede aç yapabilir
-        }
-
         openOverlayFromElement(el);
       }
     });
-
 
 
   </script>
